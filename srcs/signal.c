@@ -50,6 +50,7 @@ void	sigint_handler(int sig)
 	extern unsigned long	rl_readline_state;
 
 	(void)sig;
+	g_status_signal = SIGINT;
 	write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

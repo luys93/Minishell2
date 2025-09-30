@@ -27,7 +27,9 @@ void    ft_exit(t_data *data)
         exit_value = ft_atoi(data->command->argv[1]);
     }
     else
+	{
         exit_value = 0;
+	}
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
     free_temp(data, 'v');
     exit(exit_value);

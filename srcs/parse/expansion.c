@@ -59,7 +59,7 @@ static char	*is_expanded(t_data *data, char *value, int *i)
 
 	result = expansion_core(data, value, i);
 	if(!result)
-		return(NULL);
+		return(ft_strdup("")); // cambiato da return(NULL) a return(stringa vuota). Controllare se cambia qualche comportamento importante nel resto del software!
 	if (value[0] == '\0')
 		result = ft_strdup("");
 	return (result);
