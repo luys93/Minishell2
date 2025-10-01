@@ -25,14 +25,16 @@ int	main(void)
 	ft_memset(&data, 0, sizeof(t_data)); //non si puo usare memset
 	init_env(&data);
 	signal_handler(SIGINT, sigint_handler);
+	signal_handler(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		data.prompt = ft_getprompt();
 		status = read_line(&data);
-		if (g_status_signal == SIGINT)
+		/*if (g_status_signal == SIGINT)
 			data.exit_status = 130;
 		else if (g_status_signal == SIGQUIT)
-			data.exit_status = 131;
+			data.exit_status = 131;*/
+		g_status_signal = 0;
 		if (status == 1)
 		{
 			free_all(&data, 'v');
@@ -55,7 +57,19 @@ static int	input_execution(t_data *data)
 {
 	if (handle_input(data) == 0)
 	{
+		signal_handler(SIGINT, SIG_IGN);
+		signal_handler(SIGQUIT, sigquit_handler); //impostare dentro execution
+		/*if (g_status_signal == SIGINT)
+			data->exit_status = 130;
+		else if (g_status_signal == SIGQUIT)
+			data->exit_status = 131;
+		g_status_signal = 0;*/
 		ft_execution(data, data->command);
+		if (g_status_signal == SIGINT)
+			data->exit_status = 130;
+		else if (g_status_signal == SIGQUIT)
+			data->exit_status = 131;
+		signal_handler(SIGINT, sigint_handler);
 		return (0);
 	}
 	//data->exit_status = 2;

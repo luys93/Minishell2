@@ -53,7 +53,7 @@ void	sigint_handler(int sig)
 	g_status_signal = SIGINT;
 	write(2, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	/*rl_replace_line("", 0);
 	if (rl_readline_state & RL_STATE_READCMD)
-		rl_redisplay();
+		rl_redisplay();*/
 }
